@@ -3,16 +3,15 @@ package com.strv.movies.ui.detail
 import android.annotation.SuppressLint
 import android.content.res.Configuration
 import androidx.annotation.NonNull
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
@@ -36,7 +35,7 @@ fun MovieDetail(movieDetail: MovieDetail) {
             videoId = OfflineMoviesProvider.getTrailer(movieDetail.id).key,
             progressSeconds = mutableStateOf(0f)
         )
-        Row {
+        Row() {
             MoviePoster(movieDetail = movieDetail)
             MovieInfo(movieDetail = movieDetail)
         }
@@ -52,10 +51,13 @@ fun MovieInfo(movieDetail: MovieDetail) {
             fontWeight = FontWeight.Bold,
             fontSize = 20.sp
         )
-        Text(text = movieDetail.releaseDate, Modifier.padding(top = 8.dp, end = 16.dp))
+        Text(
+            text = movieDetail.releaseDate,
+            Modifier.padding(top = 8.dp, end = 16.dp)
+        )
         Text(
             text = movieDetail.overview, Modifier.padding(top = 8.dp, end = 16.dp),
-            textAlign = TextAlign.Justify
+            textAlign = TextAlign.Justify, color = Color.Green
         )
     }
 }

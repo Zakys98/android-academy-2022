@@ -22,14 +22,16 @@ fun LoginScreen() {
         verticalArrangement = Arrangement.SpaceBetween
     ) {
         Column(
-            modifier = Modifier.fillMaxWidth().padding(top = 100.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 100.dp),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             LoginText()
             LoginEmail()
             LoginPassword()
-            LoginButton(text = "Sign in", color = md_theme_light_primary)
+            LoginButton(text = "Sign in", color = MaterialTheme.colors.primary)
 
         }
 

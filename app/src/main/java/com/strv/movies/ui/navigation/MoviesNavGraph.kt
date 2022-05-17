@@ -9,6 +9,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.strv.movies.data.OfflineMoviesProvider
+import com.strv.movies.ui.loginscreen.LoginScreen
 import com.strv.movies.ui.moviedetail.MovieDetail
 import com.strv.movies.ui.moviedetail.MovieDetailScreen
 import com.strv.movies.ui.movieslist.MoviesList
@@ -17,8 +18,17 @@ import com.strv.movies.ui.movieslist.MoviesList
 fun MoviesNavGraph(navController: NavHostController = rememberNavController()) {
     NavHost(
         navController = navController,
-        startDestination = MoviesDestinations.MOVIES_LIST_ROUTE
+        startDestination = MoviesDestinations.MOVIE_LOGIN_SCREEN
     ) {
+        composable(MoviesDestinations.MOVIE_LOGIN_SCREEN) {
+            LoginScreen(
+                navController = navController,
+                click = {
+                    navController.navigate(MoviesDestinations.MOVIES_LIST_ROUTE)
+                }
+            )
+        }
+
         composable(MoviesDestinations.MOVIES_LIST_ROUTE) {
             MoviesList(
                 movies = OfflineMoviesProvider.getMovies(),

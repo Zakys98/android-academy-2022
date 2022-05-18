@@ -1,9 +1,12 @@
 package com.strv.movies.ui.moviedetail
 
+import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.strv.movies.data.OfflineMoviesProvider
+import com.strv.movies.extension.fold
+import com.strv.movies.network.MovieRepository
 import com.strv.movies.ui.navigation.MoviesNavArguments
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
@@ -17,6 +20,7 @@ import kotlin.random.Random
 @HiltViewModel
 class MovieDetailViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
+    movieRepository: MovieRepository
 ) : ViewModel() {
 
     private val movieId =
@@ -29,17 +33,19 @@ class MovieDetailViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            delay(2000)
-            _viewState.update {
-                val randomNumber = Random.nextInt(10)
-                if (randomNumber < 3) {
-                    MovieDetailViewState(error = "Something went wrong!")
-                } else {
-                    MovieDetailViewState(
-                        movie = OfflineMoviesProvider.getMovieDetail(movieId)
-                    )
+            movieRepository.getMovieDetail(movieId = movieId).fold(
+                { error ->
+                    Log.e("TAG", "MovieError: $error")
+                    _viewState.update {
+                        MovieDetailViewState(error = error)
+                    }
+                }, { movie ->
+                    Log.e("TAG", "MovieSuccess: $movie")
+                    _viewState.update {
+                        MovieDetailViewState(movie = movie)
+                    }
                 }
-            }
+            )
         }
     }
 

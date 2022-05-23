@@ -27,7 +27,6 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
 import com.strv.movies.R
-import com.strv.movies.data.OfflineMoviesProvider
 import com.strv.movies.model.MovieDetail
 import com.strv.movies.ui.error.ErrorScreen
 import com.strv.movies.ui.loading.LoadingScreen
@@ -47,6 +46,7 @@ fun MovieDetailScreen(
             MovieDetail(
                 movie = it,
                 videoProgress = viewState.videoProgress,
+                videoKey = viewState.videoKey?: "",
                 setVideoProgress = viewModel::updateVideoProgress
             )
         }
@@ -57,13 +57,14 @@ fun MovieDetailScreen(
 fun MovieDetail(
     movie: MovieDetail,
     videoProgress: Float = 0f,
+    videoKey: String,
     setVideoProgress: (second: Float) -> Unit
 ) {
     Column {
-        Log.d("TAG", "MovieDetail: $videoProgress")
+        Log.e("TAG", "MovieDetail: $videoProgress")
 
         MovieTrailerPlayer(
-            videoId = OfflineMoviesProvider.getTrailer(movie.id).key,
+            videoId = videoKey,
             progressSeconds = videoProgress,
             setProgress = setVideoProgress
         )

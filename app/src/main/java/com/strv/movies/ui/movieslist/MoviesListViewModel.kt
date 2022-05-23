@@ -3,16 +3,13 @@ package com.strv.movies.ui.movieslist
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.strv.movies.data.OfflineMoviesProvider
 import com.strv.movies.extension.fold
 import com.strv.movies.network.MovieRepository
-import com.strv.movies.ui.moviedetail.MovieDetailViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
 @HiltViewModel

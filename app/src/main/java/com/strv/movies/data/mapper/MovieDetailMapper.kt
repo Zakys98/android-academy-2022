@@ -1,5 +1,6 @@
 package com.strv.movies.data.mapper
 
+import com.strv.movies.data.entity.MovieDetailEntity
 import com.strv.movies.model.MovieDetail
 import com.strv.movies.model.MovieDetailDTO
 import javax.inject.Inject
@@ -12,7 +13,30 @@ class MovieDetailMapper @Inject constructor() : Mapper<MovieDetailDTO, MovieDeta
             title = from.title,
             overview = from.overview,
             releaseYear = from.releaseDate.substringBefore("-"), // ideal place to do some small tweaks to data to make it more UI ready
-            posterPath = from.posterPath,
-            runtime = from.runtime // It would be nice to use string resource here and return formatted string value, sadly we do not have context here.
+            posterPath = from.posterPath
         )
 }
+
+/*fun MovieDetailDTO.toEntity() = MovieDetailEntity(
+    id = id,
+    title = title,
+    overview = overview,
+    releaseDate = releaseDate,
+    posterPath = posterPath,
+    revenue = revenue
+)
+
+fun GenreDTO.toEntity() = GenreEntity(
+    genreId = id,
+    name = name
+)
+
+fun GenreDTO.toEntity(movieId: Int) = MovieGenreEntity(
+    genreId = id,
+    movieId = movieId
+)
+
+fun GenreEntity.toDomain() = Genre(
+    id = genreId,
+    name = name
+)*/

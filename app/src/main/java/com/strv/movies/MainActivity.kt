@@ -24,6 +24,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.strv.movies.extension.assistedViewModel
 import com.strv.movies.ui.navigation.MoviesNavGraph
 import com.strv.movies.ui.theme.MoviesTheme
@@ -33,17 +34,12 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-    @Inject
-    lateinit var mainViewModelFactory: MainViewModel.MainViewModelFactory
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            val viewModel by assistedViewModel {
-                mainViewModelFactory.create(it, isSystemInDarkTheme())
-            }
+            val viewModel = viewModel<MainViewModel>()
 
-            val isDarkTheme by viewModel.isDarkTheme.collectAsState()
+            val isDarkTheme by viewModel.isDarkTheme.collectAsState(isSystemInDarkTheme())
             changeStatusBarColor(isDarkTheme)
 
             MoviesTheme(useDarkTheme = isDarkTheme) {

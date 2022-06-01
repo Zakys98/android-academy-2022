@@ -1,6 +1,7 @@
 package com.strv.movies.model
 
 import com.squareup.moshi.Json
+import com.strv.movies.data.entity.MovieDetailEntity
 
 // Used for getting data from network
 data class MovieDetailDTO(
@@ -27,5 +28,12 @@ data class MovieDetail(
     val overview: String?,
     val releaseYear: String,
     val posterPath: String,
-    val runtime: Int // Not used for now - try to include it in UI if you want :)
+)
+
+fun MovieDetailDTO.toEntity() = MovieDetailEntity(
+    id = id,
+    title = title,
+    overview = overview,
+    releaseYear = releaseDate,
+    posterPath = posterPath
 )

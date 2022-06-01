@@ -85,7 +85,7 @@ object NetworkModule {
         val originalHttpUrl = original.url
 
         val url = originalHttpUrl.newBuilder()
-            .addQueryParameter("api_key", "ADD_YOUR_KEY") // TODO ADD your key
+            .addQueryParameter("api_key", "8c59db3307357aad650e59c0fd8ea757")
             .build()
 
         // Request customization: add request headers

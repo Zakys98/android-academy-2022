@@ -36,7 +36,7 @@ import com.strv.movies.ui.loading.LoadingScreen
 fun MovieDetailScreen(
     viewModel: MovieDetailViewModel = viewModel()
 ) {
-    val viewState by viewModel.viewState.collectAsState()
+    val viewState by viewModel.viewState.collectAsState(MovieDetailViewState(loading = true))
 
     if (viewState.loading) {
         LoadingScreen()
